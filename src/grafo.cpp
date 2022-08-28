@@ -59,7 +59,7 @@ int Grafo::getTamanho()
 
 Aresta *Grafo::insereA(Vertice *u, Vertice *v)
 {
-    Aresta *a = new Aresta();
+    Aresta *a = new Aresta(u, v);
     u->mapaAdjacencia[v] = a;
     v->mapaAdjacencia[u] = a;
     return a;
@@ -67,7 +67,7 @@ Aresta *Grafo::insereA(Vertice *u, Vertice *v)
 
 Aresta *Grafo::insereA(Vertice *u, Vertice *v, std::string identificador)
 {
-    Aresta *a = new Aresta(identificador);
+    Aresta *a = new Aresta(u, v, identificador);
     u->mapaAdjacencia[v] = a;
     v->mapaAdjacencia[u] = a;
     return a;
@@ -108,7 +108,27 @@ int Grafo::grauS(Vertice *v)
     return grau(v);
 }
 
-Vertice *Grafo::getV(std::string identificador)
+Vertice *Grafo::oposto(Vertice *v, Aresta *e)
+{
+    // se eu pudesse garantir que v pertence a aresta e:
+    // return (e->getU() == v) ? e->getV() : e->getU();
+    // mas vai que passam um v errado de sacanagem
+
+    if (v == e->getV())
+    {
+        return e->getU();
+    }
+
+    if (v == e->getU())
+    {
+        return e->getV();
+    }
+
+    return nullptr;
+}
+
+Vertice *
+Grafo::getV(std::string identificador)
 {
     for (auto &v : listaVertices)
     {
@@ -128,8 +148,7 @@ std::vector<Vertice *> Grafo::vertices()
     // evitando que o vector precise mover elementos da memória
     vertices.reserve(getOrdem());
 
-    vertices = {std::begin(listaVertices),
-                std::end(listaVertices)};
+    vertices = {std::begin(listaVertices), std::end(listaVertices)};
 
     return vertices;
 }
@@ -175,4 +194,9 @@ std::unordered_set<Aresta *> Grafo::arestasE()
 std::unordered_set<Aresta *> Grafo::arestasS()
 {
     return arestas();
+}
+
+std::pair<Vertice *, Vertice *> Grafo::verticesA(Aresta *e)
+{
+    return std::pair<Vertice *, Vertice *>(e->getU(), e->getV());
 }

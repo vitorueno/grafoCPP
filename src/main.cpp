@@ -1,5 +1,6 @@
 #include <iostream>
 #include <list>
+#include <utility>
 #include <vector>
 #include <unordered_set>
 #include <string>
@@ -62,6 +63,21 @@ int main(int argc, char *argv[])
 
     cout << "\nverificando o grau do vértice v1\n";
     cout << g.grau(v1) << endl;
+
+    cout << "\npegar vértice oposto a um vértice em uma aresta\n";
+    Vertice *oposto = g.oposto(v1, a1);
+
+    if (oposto == v2)
+    {
+        cout << "conseguiu pegar o oposto!\n";
+    }
+
+    cout << "\npegar par de vértices de uma aresta\n";
+    pair<Vertice *, Vertice *> parVertices = g.verticesA(a1);
+    if (parVertices.first == v1 && parVertices.second == v2)
+    {
+        cout << "o par coincide com os vértices esperados\n";
+    }
 
     return 0;
 }

@@ -12,7 +12,7 @@ project(grafoCPP)
 include_directories(  ./src  )
 
 # target
-add_executable( a.out ./src/main.cpp ./src/vertice.cpp ./src/grafo.cpp ./src/aresta.cpp)
+add_executable( a.out ./src/main.cpp ./src/aresta.cpp ./src/vertice.cpp ./src/grafo.cpp )
 
 
 # linha para compilar para debug (comentar para otimizar compilação)
