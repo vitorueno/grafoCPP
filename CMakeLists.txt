@@ -12,7 +12,7 @@ project(grafoCPP)
 include_directories(  ./src  )
 
 # target
-add_executable( a.out ./src/main.cpp ./src/vertice.cpp)
+add_executable( a.out ./src/main.cpp ./src/vertice.cpp ./src/grafo.cpp ./src/aresta.cpp)
 
 # external libs - 3rd party libs
 # add_subdirectory( ./libs/Logger )

@@ -1,23 +1,28 @@
 #include <iostream>
+// #include <stdlib.h>
 #include <list>
+#include <string>
+
 using namespace std;
 
 #include "vertice.h"
+#include "grafo.h"
 
 int main(int argc, char *argv[])
 {
-    Vertice v(10);
-    list<int> l = {7, 5, 16, 8};
+    Grafo g("g1");
 
-    l.push_back(16);
+    cout << g.getIdentificador() << endl;
 
-    // Print out the list
-    cout << "l = { ";
-    for (int n : l)
+    g.insereV("v1");
+    g.insereV("v2");
+    g.insereV("v3");
+
+    list<Vertice>::iterator it = g.vertices();
+
+    for (int i = 0; i < g.getOrdem(); i++)
     {
-        cout << n << ", ";
+        cout << it->getIdentificador() << endl;
+        it++;
     }
-    cout << "};\n";
-
-    cout << v.x << "\n";
 }

@@ -4,11 +4,16 @@ Vertice::Vertice()
 {
 }
 
-Vertice::Vertice(int x)
+Vertice::Vertice(std::string identificador)
 {
-    Vertice::x = x;
+    Vertice::identificador = identificador;
 }
 
 Vertice::~Vertice()
 {
+}
+
+std::string Vertice::getIdentificador()
+{
+    return identificador;
 }
