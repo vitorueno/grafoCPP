@@ -73,6 +73,41 @@ Aresta *Grafo::insereA(Vertice *u, Vertice *v, std::string identificador)
     return a;
 }
 
+Aresta *Grafo::getA(Vertice *u, Vertice *v)
+{
+    if (u->mapaAdjacencia.find(v) != u->mapaAdjacencia.end())
+    {
+        return u->mapaAdjacencia.at(v);
+    }
+    return nullptr;
+}
+
+int Grafo::grau(Vertice *v)
+{
+    int grau = 0;
+
+    for (auto &keyValue : v->mapaAdjacencia)
+    {
+        Vertice *u = keyValue.first;
+
+        if (u == v)
+            grau += 2;
+        else
+            grau++;
+    }
+    return grau;
+}
+
+int Grafo::grauE(Vertice *v)
+{
+    return grau(v);
+}
+
+int Grafo::grauS(Vertice *v)
+{
+    return grau(v);
+}
+
 Vertice *Grafo::getV(std::string identificador)
 {
     for (auto &v : listaVertices)
@@ -130,4 +165,14 @@ std::unordered_set<Aresta *> Grafo::arestas()
     }
 
     return arestas;
+}
+
+std::unordered_set<Aresta *> Grafo::arestasE()
+{
+    return arestas();
+}
+
+std::unordered_set<Aresta *> Grafo::arestasS()
+{
+    return arestas();
 }

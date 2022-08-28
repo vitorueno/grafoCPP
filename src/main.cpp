@@ -33,8 +33,9 @@ int main(int argc, char *argv[])
     Aresta *a1 = g.insereA(v1, v2, "a1 (v1, v2)");
     Aresta *a2 = g.insereA(v1, v3, "a2 (v1, v3)");
     Aresta *a3 = g.insereA(v2, v3, "a3 (v2, v3)");
-    Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
-    Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
+    // Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
+    // Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
+    // Aresta *a6 = g.insereA(v1, v2, "a1 de novo (v1, v2)");
 
     vector<Vertice *> adjacentes = g.adj(v1);
 
@@ -54,6 +55,13 @@ int main(int argc, char *argv[])
 
     cout << "\nnúmero de arestas:\n";
     cout << g.getTamanho() << endl;
+
+    cout << "\nacessando a aresta a partir de dois vértices\n";
+    Aresta *a = g.getA(v1, v2);
+    cout << a->getIdentificador() << endl;
+
+    cout << "\nverificando o grau do vértice v1\n";
+    cout << g.grau(v1) << endl;
 
     return 0;
 }
