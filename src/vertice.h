@@ -9,14 +9,15 @@ class Vertice
 {
 private:
     std::string identificador;
-    // std::unordered_map<Vertice *, Aresta *> mapaAdjacencia;
 
 public:
+    std::unordered_map<Vertice *, Aresta *> mapaAdjacencia;
+
     Vertice();
     Vertice(std::string identificador);
     ~Vertice();
 
-    std::string getIdentificador();
+    std::string getIdentificador() const;
 };
 
 #endif

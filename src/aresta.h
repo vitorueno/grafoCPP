@@ -13,7 +13,7 @@ public:
     Aresta(std::string identificador);
     ~Aresta();
 
-    std::string getIdentificador();
+    std::string getIdentificador() const;
 };
 
 #endif

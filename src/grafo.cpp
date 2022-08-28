@@ -9,23 +9,37 @@ Grafo::Grafo(std::string identificador)
     Grafo::identificador = identificador;
 }
 
-Grafo::~Grafo()
+void Grafo::limpar()
 {
+    std::list<Vertice *>::iterator i;
+    for (i = listaVertices.begin(); i != listaVertices.end(); i++)
+    {
+        delete *i;
+    }
 }
 
-std::string Grafo::getIdentificador()
+Grafo::~Grafo()
+{
+    limpar();
+}
+
+std::string Grafo::getIdentificador() const
 {
     return identificador;
 }
 
-void Grafo::insereV()
+Vertice *Grafo::insereV()
 {
-    listaVertices.push_back(Vertice());
+    Vertice *v = new Vertice();
+    listaVertices.push_back(v);
+    return v;
 }
 
-void Grafo::insereV(std::string identificador)
+Vertice *Grafo::insereV(std::string identificador)
 {
-    listaVertices.push_back(Vertice(identificador));
+    Vertice *v = new Vertice(identificador);
+    listaVertices.push_back(v);
+    return v;
 }
 
 int Grafo::getOrdem()
@@ -33,12 +47,35 @@ int Grafo::getOrdem()
     return listaVertices.size();
 }
 
-// const std::list<Vertice> &Grafo::vertices() const
-// {
-//     return listaVertices;
-// }
+Aresta *Grafo::insereA(Vertice *u, Vertice *v)
+{
+    Aresta *a = new Aresta();
+    u->mapaAdjacencia[v] = a;
+    v->mapaAdjacencia[u] = a;
+    return a;
+}
 
-std::list<Vertice>::iterator Grafo::vertices()
+Aresta *Grafo::insereA(Vertice *u, Vertice *v, std::string identificador)
+{
+    Aresta *a = new Aresta(identificador);
+    u->mapaAdjacencia[v] = a;
+    v->mapaAdjacencia[u] = a;
+    return a;
+}
+
+Vertice *Grafo::getV(std::string identificador)
+{
+    for (auto &v : listaVertices)
+    {
+        if (v->getIdentificador() == identificador)
+        {
+            return v;
+        }
+    }
+    return nullptr;
+}
+
+std::list<Vertice *>::const_iterator Grafo::vertices()
 {
     return listaVertices.begin();
 }

@@ -13,7 +13,7 @@ Aresta::~Aresta()
 {
 }
 
-std::string Aresta::getIdentificador()
+std::string Aresta::getIdentificador() const
 {
     return identificador;
 }

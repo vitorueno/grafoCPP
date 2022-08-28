@@ -13,7 +13,7 @@ Vertice::~Vertice()
 {
 }
 
-std::string Vertice::getIdentificador()
+std::string Vertice::getIdentificador() const
 {
     return identificador;
 }
