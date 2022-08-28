@@ -1,5 +1,7 @@
 #include <iostream>
 #include <list>
+#include <vector>
+#include <unordered_set>
 #include <string>
 
 using namespace std;
@@ -14,28 +16,44 @@ int main(int argc, char *argv[])
 
     cout << g.getIdentificador() << endl;
 
+    // inserindo vértices
     Vertice *v1 = g.insereV("v1");
     Vertice *v2 = g.insereV("v2");
     Vertice *v3 = g.insereV("v3");
 
-    list<Vertice *>::const_iterator it = g.vertices();
+    vector<Vertice *> vertices = g.vertices();
 
-    for (int i = 0; i < g.getOrdem(); i++)
+    cout << "\npercorrendo todos os vértices\n";
+    for (auto &v : vertices)
     {
-        cout << (*it)->getIdentificador() << endl;
-        it++;
+        cout << v->getIdentificador() << endl;
     }
 
-    Aresta *a1 = g.insereA(v1, v2, "a1");
+    // inserindo arestas
+    Aresta *a1 = g.insereA(v1, v2, "a1 (v1, v2)");
+    Aresta *a2 = g.insereA(v1, v3, "a2 (v1, v3)");
+    Aresta *a3 = g.insereA(v2, v3, "a3 (v2, v3)");
+    Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
+    Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
 
-    Aresta *recPeloV1 = v1->mapaAdjacencia[v2];
-    Aresta *recPeloV2 = v2->mapaAdjacencia[v1];
+    vector<Vertice *> adjacentes = g.adj(v1);
 
-    if ((a1 == recPeloV1) && (a1 == recPeloV2))
+    cout << "\nvértices adjacentes a v1:\n";
+    for (auto &v : adjacentes)
     {
-        cout << "endereços apontam para o mesmo objeto\n";
+        cout << v->getIdentificador() << endl;
     }
 
-    // cout << recPeloV2->getIdentificador() << endl;
-    // cout << a1->getIdentificador() << endl;
+    cout << "\ntodas as arestas do grafo\n";
+    unordered_set<Aresta *> arestas = g.arestas();
+
+    for (auto &a : arestas)
+    {
+        cout << a->getIdentificador() << endl;
+    }
+
+    cout << "\nnúmero de arestas:\n";
+    cout << g.getTamanho() << endl;
+
+    return 0;
 }

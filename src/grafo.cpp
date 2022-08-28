@@ -16,6 +16,11 @@ void Grafo::limpar()
     {
         delete *i;
     }
+
+    for (auto &a : arestas())
+    {
+        delete a;
+    }
 }
 
 Grafo::~Grafo()
@@ -47,6 +52,11 @@ int Grafo::getOrdem()
     return listaVertices.size();
 }
 
+int Grafo::getTamanho()
+{
+    return arestas().size();
+}
+
 Aresta *Grafo::insereA(Vertice *u, Vertice *v)
 {
     Aresta *a = new Aresta();
@@ -75,7 +85,49 @@ Vertice *Grafo::getV(std::string identificador)
     return nullptr;
 }
 
-std::list<Vertice *>::const_iterator Grafo::vertices()
+std::vector<Vertice *> Grafo::vertices()
 {
-    return listaVertices.begin();
+    // copiando o conteúdo da lista para um vector
+    std::vector<Vertice *> vertices;
+
+    // evitando que o vector precise mover elementos da memória
+    vertices.reserve(getOrdem());
+
+    vertices = {std::begin(listaVertices),
+                std::end(listaVertices)};
+
+    return vertices;
+}
+
+std::vector<Vertice *> Grafo::adj(Vertice *v)
+{
+    std::vector<Vertice *> vAdjacentes;
+
+    // reservando tamanho previamente para evitar que sejam movidos
+    vAdjacentes.reserve(v->mapaAdjacencia.size());
+
+    // (key, value) = (vértice adjacente u, aresta que liga u e v)
+    for (auto &keyValue : v->mapaAdjacencia)
+    {
+        auto &u = keyValue.first;
+        vAdjacentes.push_back(u);
+    }
+
+    return vAdjacentes;
+}
+
+std::unordered_set<Aresta *> Grafo::arestas()
+{
+    std::unordered_set<Aresta *> arestas;
+
+    for (auto &v : listaVertices)
+    {
+        for (auto &keyValue : v->mapaAdjacencia)
+        {
+            Aresta *a = keyValue.second;
+            arestas.insert(a);
+        }
+    }
+
+    return arestas;
 }

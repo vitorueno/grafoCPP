@@ -2,6 +2,8 @@
 #define __GRAFO_H__
 
 #include <list>
+#include <vector>
+#include <unordered_set>
 #include <string>
 #include "vertice.h"
 #include "aresta.h"
@@ -20,17 +22,21 @@ public:
     ~Grafo();
 
     // métodos do grafo
-    std::string getIdentificador() const;            // retorna o identificador do grafo
-    std::list<Vertice *>::const_iterator vertices(); // retorna um iterator dos vértices
-    Vertice *insereV();                              // insereVertice sem identificador
-    Vertice *insereV(std::string identificador);     // insereVertice com identificador
-    int getOrdem();                                  // devolve o número de vértices
-    Aresta *insereA(Vertice *u, Vertice *v);         // inserir aresta entre u e v
-    Aresta *insereA(Vertice *u, Vertice *v,          // insere aresta entre u e v
-                    std::string identificador);      // insere aresta com id entre u e v
+    std::string getIdentificador() const;        // retorna o identificador do grafo
+    std::vector<Vertice *> vertices();           // retorna um iterator dos vértices
+    Vertice *insereV();                          // insereVertice sem identificador
+    Vertice *insereV(std::string identificador); // insereVertice com identificador
+    int getOrdem();                              // retorna o número de vértices
+    int getTamanho();                            // retorna o número de arestas
+    Aresta *insereA(Vertice *u, Vertice *v);     // inserir aresta entre u e v
+    Aresta *insereA(Vertice *u, Vertice *v,      // insere aresta entre u e v
+                    std::string identificador);  // insere aresta com id entre u e v
+    std::vector<Vertice *> adj(Vertice *v);      // vértices adjacentes ao vértice atual
+    std::unordered_set<Aresta *> arestas();      // retorna todas as arestas do grafo
 
     // métodos da minha implementação
-    Vertice *getV(std::string identificador); // retorna o vértice com esse identificador
+    Vertice *
+    getV(std::string identificador); // retorna o vértice com esse identificador
 };
 
 #endif
