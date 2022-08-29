@@ -14,8 +14,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     Grafo g("g1");
-
-    cout << g.getIdentificador() << endl;
+    cout << g << endl;
 
     // inserindo vértices
     Vertice *v1 = g.insereV("v1");
@@ -27,13 +26,13 @@ int main(int argc, char *argv[])
     cout << "\npercorrendo todos os vértices\n";
     for (auto &v : vertices)
     {
-        cout << v->getIdentificador() << endl;
+        cout << *v << endl;
     }
 
     // inserindo arestas
-    Aresta *a1 = g.insereA(v1, v2, "a1 (v1, v2)");
-    Aresta *a2 = g.insereA(v1, v3, "a2 (v1, v3)");
-    Aresta *a3 = g.insereA(v2, v3, "a3 (v2, v3)");
+    Aresta *a1 = g.insereA(v1, v2, "a1");
+    Aresta *a2 = g.insereA(v1, v3, "a2");
+    Aresta *a3 = g.insereA(v2, v3, "a3");
     // Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
     // Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
     // Aresta *a6 = g.insereA(v1, v2, "a1 de novo (v1, v2)");
@@ -43,7 +42,7 @@ int main(int argc, char *argv[])
     cout << "\nvértices adjacentes a v1:\n";
     for (auto &v : adjacentes)
     {
-        cout << v->getIdentificador() << endl;
+        cout << *v << endl;
     }
 
     cout << "\ntodas as arestas do grafo\n";
@@ -51,7 +50,7 @@ int main(int argc, char *argv[])
 
     for (auto &a : arestas)
     {
-        cout << a->getIdentificador() << endl;
+        cout << *a << endl;
     }
 
     cout << "\nnúmero de arestas:\n";
@@ -59,7 +58,7 @@ int main(int argc, char *argv[])
 
     cout << "\nacessando a aresta a partir de dois vértices\n";
     Aresta *a = g.getA(v1, v2);
-    cout << a->getIdentificador() << endl;
+    cout << *a << endl;
 
     cout << "\nverificando o grau do vértice v1\n";
     cout << g.grau(v1) << endl;

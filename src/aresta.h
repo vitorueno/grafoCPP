@@ -3,6 +3,7 @@
 
 #include <string>
 #include "vertice.h"
+#include <sstream>
 
 class Aresta
 {
@@ -25,6 +26,9 @@ public:
     void setIdentificador(std::string identificador);
     void setU(Vertice *u);
     void setV(Vertice *v);
+
+    friend std::ostream &operator<<(std::ostream &os, const Aresta &a);
+    std::string toString();
 };
 
 #endif

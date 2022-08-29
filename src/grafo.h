@@ -8,6 +8,7 @@
 #include <utility>
 #include "vertice.h"
 #include "aresta.h"
+#include <sstream>
 
 class Grafo
 {
@@ -45,6 +46,8 @@ public:
 
     // métodos da minha implementação
     Vertice *getV(std::string identificador); // retorna o vértice com esse identificador
+    friend std::ostream &operator<<(std::ostream &os, const Grafo &g);
+    std::string toString();
 };
 
 #endif

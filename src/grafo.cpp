@@ -140,6 +140,19 @@ Grafo::getV(std::string identificador)
     return nullptr;
 }
 
+std::ostream &operator<<(std::ostream &os, const Grafo &g)
+{
+    os << "Grafo <" << g.identificador << ">";
+    return os;
+}
+
+std::string Grafo::toString()
+{
+    std::ostringstream ss;
+    ss << identificador;
+    return ss.str();
+}
+
 std::vector<Vertice *> Grafo::vertices()
 {
     // copiando o conteúdo da lista para um vector

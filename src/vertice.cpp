@@ -17,3 +17,16 @@ std::string Vertice::getIdentificador() const
 {
     return identificador;
 }
+
+std::ostream &operator<<(std::ostream &os, const Vertice &v)
+{
+    os << "Vértice <" << v.identificador << "> ";
+    return os;
+}
+
+std::string Vertice::toString()
+{
+    std::ostringstream ss;
+    ss << identificador;
+    return ss.str();
+}
