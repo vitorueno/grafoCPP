@@ -78,5 +78,35 @@ int main(int argc, char *argv[])
         cout << "o par coincide com os vértices esperados\n";
     }
 
+    // removendo uma aresta
+    cout << "\nremovendo a aresta a1\n";
+
+    g.removeA(a1);
+
+    for (auto &a : g.arestas())
+    {
+        cout << *a << endl;
+    }
+
+    if (v1->mapaAdjacencia.find(v2) == v1->mapaAdjacencia.end())
+    {
+        cout << "v2 não é mais adjacente a v1\n";
+    }
+
+    // removendo um vértice
+    cout << "\nremovendo o vértice v1\n";
+
+    g.removeV(v1);
+
+    for (auto &v : g.vertices())
+    {
+        cout << *v << endl;
+    }
+
+    for (auto &v : g.arestas())
+    {
+        cout << *v << endl;
+    }
+
     return 0;
 }

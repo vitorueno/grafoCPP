@@ -43,6 +43,8 @@ public:
     int grauS(Vertice *v);                                // retorna o grau do vértice v
     Vertice *oposto(Vertice *v, Aresta *e);               // retorna o vértice oposto a v na aresta e
     std::pair<Vertice *, Vertice *> verticesA(Aresta *e); // retorna o par de vértices conectados a aresta
+    void removeA(Aresta *e);
+    void removeV(Vertice *v);
 
     // métodos da minha implementação
     Vertice *getV(std::string identificador); // retorna o vértice com esse identificador

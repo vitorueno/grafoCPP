@@ -60,6 +60,7 @@ int Grafo::getTamanho()
 Aresta *Grafo::insereA(Vertice *u, Vertice *v)
 {
     Aresta *a = new Aresta(u, v);
+
     u->mapaAdjacencia[v] = a;
     v->mapaAdjacencia[u] = a;
     return a;
@@ -127,8 +128,46 @@ Vertice *Grafo::oposto(Vertice *v, Aresta *e)
     return nullptr;
 }
 
-Vertice *
-Grafo::getV(std::string identificador)
+void Grafo::removeA(Aresta *e)
+{
+    // pegando a referência para os vértices da aresta
+    Vertice *v1 = e->getU();
+    Vertice *v2 = e->getV();
+
+    // removendo o outro vértice do mapa de adjacência
+    v1->mapaAdjacencia.erase(v2); // removendo passando a chave
+    v2->mapaAdjacencia.erase(v1);
+
+    // setando as referências da aresta para null
+    e->setU(nullptr);
+    e->setV(nullptr);
+
+    // apagando a aresta
+    delete e;
+}
+
+void Grafo::removeV(Vertice *v)
+{
+    std::unordered_map<Vertice *, Aresta *> mapa = v->mapaAdjacencia;
+
+    // remover cada aresta ligada a v
+    for (auto &keyValue : mapa)
+    {
+        auto &aresta = keyValue.second;
+        removeA(aresta);
+    }
+
+    // zerar mapa de adjacência do vértice
+    mapa.erase(mapa.begin(), mapa.end());
+
+    // remover vértice da lista do grafo
+    listaVertices.remove(v);
+
+    // apagar vértice
+    delete v;
+}
+
+Vertice *Grafo::getV(std::string identificador)
 {
     for (auto &v : listaVertices)
     {
