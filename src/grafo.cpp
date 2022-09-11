@@ -4,9 +4,8 @@ Grafo::Grafo()
 {
 }
 
-Grafo::Grafo(std::string identificador)
+Grafo::Grafo(std::string identificador) : ObjetoIdentificado{identificador}
 {
-    Grafo::identificador = identificador;
 }
 
 void Grafo::limpar()
@@ -26,11 +25,6 @@ void Grafo::limpar()
 Grafo::~Grafo()
 {
     limpar();
-}
-
-std::string Grafo::getIdentificador() const
-{
-    return identificador;
 }
 
 Vertice *Grafo::insereV()
@@ -238,14 +232,22 @@ std::unordered_set<Aresta *> Grafo::arestas()
     return arestas;
 }
 
-std::unordered_set<Aresta *> Grafo::arestasE()
+std::unordered_set<Aresta *> Grafo::arestasE(Vertice *v)
 {
-    return arestas();
+    std::unordered_set<Aresta *> arestas;
+
+    for (auto &keyValue : v->mapaAdjacencia)
+    {
+        Aresta *a = keyValue.second;
+        arestas.insert(a);
+    }
+
+    return arestas;
 }
 
-std::unordered_set<Aresta *> Grafo::arestasS()
+std::unordered_set<Aresta *> Grafo::arestasS(Vertice *v)
 {
-    return arestas();
+    return arestasE(v);
 }
 
 std::pair<Vertice *, Vertice *> Grafo::verticesA(Aresta *e)

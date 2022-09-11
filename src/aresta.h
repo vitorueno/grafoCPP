@@ -5,10 +5,12 @@
 #include "vertice.h"
 #include <sstream>
 
-class Aresta
+#include "objetoIdentificado.h"
+
+class Aresta : public ObjetoIdentificado
 {
 private:
-    std::string identificador;
+    // std::string identificador;
     Vertice *u;
     Vertice *v;
 
@@ -19,11 +21,11 @@ public:
     Aresta(Vertice *u, Vertice *v, std::string identificador);
     ~Aresta();
 
-    std::string getIdentificador();
+    // std::string getIdentificador();
     Vertice *getU();
     Vertice *getV();
 
-    void setIdentificador(std::string identificador);
+    // void setIdentificador(std::string identificador);
     void setU(Vertice *u);
     void setV(Vertice *v);
 
@@ -31,4 +33,4 @@ public:
     std::string toString();
 };
 
-#endif
+#endif // __ARESTA_H__

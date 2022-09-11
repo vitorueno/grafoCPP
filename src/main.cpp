@@ -10,8 +10,11 @@ using namespace std;
 #include "vertice.h"
 #include "grafo.h"
 #include "aresta.h"
+#include "grafoDirigido.h"
+#include "verticeDirigido.h"
+#include "arestaDirigida.h"
 
-int main(int argc, char *argv[])
+void testaGrafo()
 {
     Grafo g("g1");
     cout << g << endl;
@@ -33,9 +36,9 @@ int main(int argc, char *argv[])
     Aresta *a1 = g.insereA(v1, v2, "a1");
     Aresta *a2 = g.insereA(v1, v3, "a2");
     Aresta *a3 = g.insereA(v2, v3, "a3");
-    // Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
-    // Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
-    // Aresta *a6 = g.insereA(v1, v2, "a1 de novo (v1, v2)");
+    // // Aresta *a4 = g.insereA(v1, v1, "a4 (v1, v1)");
+    // // Aresta *a5 = g.insereA(v2, v2, "a5 (v2, v2)");
+    // // Aresta *a6 = g.insereA(v1, v2, "a1 de novo (v1, v2)");
 
     vector<Vertice *> adjacentes = g.adj(v1);
 
@@ -107,6 +110,93 @@ int main(int argc, char *argv[])
     {
         cout << *v << endl;
     }
+}
 
+void testaDigrafo()
+{
+    GrafoDirigido dg("digrafo 1");
+    cout << dg << endl;
+
+    VerticeDirigido *v1 = dg.insereV("v1");
+    VerticeDirigido *v2 = dg.insereV("v2");
+    VerticeDirigido *v3 = dg.insereV("v3");
+
+    ArestaDirigida *a1 = dg.insereA(v1, v2, "a1");
+    ArestaDirigida *a2 = dg.insereA(v1, v3, "a2");
+    ArestaDirigida *a3 = dg.insereA(v3, v1, "a3");
+
+    cout << "\ntodos os vértices\n";
+    for (auto &v : dg.vertices())
+    {
+        cout << *v << endl;
+    }
+
+    cout << "\narestas de entrada de v1\n";
+    for (auto &a : dg.arestasE(v1))
+    {
+        cout << *a << endl;
+    }
+
+    cout << "\narestas de saída de v1\n";
+    for (auto &a : dg.arestasS(v1))
+    {
+        cout << *a << endl;
+    }
+
+    cout << "\npercorrendo os adjacentes de v1\n";
+    for (auto &v : dg.adj(v1))
+    {
+        cout << *v << endl;
+    }
+
+    ArestaDirigida *arestaUparaV = dg.getA(v1, v2);
+
+    if (arestaUparaV == a1)
+    {
+        cout << "\nmétodo getA funcionou pois conseguiu pegar o a1\n";
+    }
+
+    cout << "\ngrau de entrada do v1: " << dg.grauE(v1) << endl;
+    cout << "grau de saída do v1: " << dg.grauS(v1) << endl;
+
+    pair<VerticeDirigido *, VerticeDirigido *> par = dg.verticesA(a1);
+    if (par.first == v1 && par.second == v2)
+    {
+        cout << "\nfunção verticesA funcionou pois conseguiu pegar v1 e v2\n";
+    }
+
+    VerticeDirigido *oposto = dg.oposto(v1, a1);
+    if (oposto == v2)
+    {
+        cout << "\nfunção oposto funcionou pois conseguiu pegar v2 a partir de v1 e a1\n";
+    }
+
+    cout << "\ntestando a remoção de aresta:\n";
+    dg.removeA(a1);
+
+    for (auto &a : dg.arestas())
+    {
+        cout << *a << endl;
+    }
+
+    cout << "\ntestando a remoção de vértice:\n";
+    dg.removeV(v2);
+
+    for (auto &v : dg.vertices())
+    {
+        cout << *v << endl;
+    }
+
+    for (auto &a : dg.arestas())
+    {
+        cout << *a << endl;
+    }
+}
+
+int main(int argc, char *argv[])
+{
+
+    // testaGrafo();
+    testaDigrafo();
     return 0;
 }

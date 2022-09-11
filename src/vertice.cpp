@@ -4,19 +4,19 @@ Vertice::Vertice()
 {
 }
 
-Vertice::Vertice(std::string identificador)
+Vertice::Vertice(std::string identificador) : ObjetoIdentificado{identificador}
 {
-    Vertice::identificador = identificador;
+    // Vertice::identificador = identificador;
 }
 
 Vertice::~Vertice()
 {
 }
 
-std::string Vertice::getIdentificador() const
-{
-    return identificador;
-}
+// std::string Vertice::getIdentificador() const
+// {
+//     return identificador;
+// }
 
 std::ostream &operator<<(std::ostream &os, const Vertice &v)
 {

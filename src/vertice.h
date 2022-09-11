@@ -5,13 +5,12 @@
 #include <unordered_map>
 #include <sstream>
 
+#include "objetoIdentificado.h"
+
 class Aresta;
 
-class Vertice
+class Vertice : public ObjetoIdentificado
 {
-private:
-    std::string identificador;
-
 public:
     std::unordered_map<Vertice *, Aresta *> mapaAdjacencia;
 
@@ -19,7 +18,6 @@ public:
     Vertice(std::string identificador);
     ~Vertice();
 
-    std::string getIdentificador() const;
     friend std::ostream &operator<<(std::ostream &os, const Vertice &v);
     std::string toString();
 };
