@@ -57,8 +57,11 @@ int main(int argc, char *argv[])
     cout << g.getTamanho() << endl;
 
     cout << "\nacessando a aresta a partir de dois vértices\n";
-    Aresta *a = g.getA(v1, v2);
-    cout << *a << endl;
+    vector<Aresta *> arestasV1V2 = g.getA(v1, v2);
+    for (auto &a : arestasV1V2)
+    {
+        cout << *a << endl;
+    }
 
     cout << "\nverificando o grau do vértice v1\n";
     cout << g.grau(v1) << endl;
@@ -83,30 +86,42 @@ int main(int argc, char *argv[])
 
     g.removeA(a1);
 
-    for (auto &a : g.arestas())
+    for (auto &kv : v1->mapaAdjacencia)
     {
-        cout << *a << endl;
+        if (kv.first == v2)
+        {
+            cout << "fail\n";
+            for (auto &e : kv.second)
+            {
+                cout << *e << "\n";
+            }
+        }
     }
 
-    if (v1->mapaAdjacencia.find(v2) == v1->mapaAdjacencia.end())
-    {
-        cout << "v2 não é mais adjacente a v1\n";
-    }
+    // for (auto &a : g.arestas())
+    // {
+    //     cout << *a << endl;
+    // }
 
-    // removendo um vértice
-    cout << "\nremovendo o vértice v1\n";
+    // if (v1->mapaAdjacencia.find(v2) == v1->mapaAdjacencia.end())
+    // {
+    //     cout << "v2 não é mais adjacente a v1\n";
+    // }
 
-    g.removeV(v1);
+    // // removendo um vértice
+    // cout << "\nremovendo o vértice v1\n";
 
-    for (auto &v : g.vertices())
-    {
-        cout << *v << endl;
-    }
+    // g.removeV(v1);
 
-    for (auto &v : g.arestas())
-    {
-        cout << *v << endl;
-    }
+    // for (auto &v : g.vertices())
+    // {
+    //     cout << *v << endl;
+    // }
+
+    // for (auto &v : g.arestas())
+    // {
+    //     cout << *v << endl;
+    // }
 
     return 0;
 }

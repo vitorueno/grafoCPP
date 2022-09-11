@@ -10,6 +10,8 @@
 #include "aresta.h"
 #include <sstream>
 
+#include <iostream>
+
 class Grafo
 {
 private:
@@ -37,7 +39,7 @@ public:
     std::unordered_set<Aresta *> arestas();               // retorna todas as arestas do grafo
     std::unordered_set<Aresta *> arestasE();              // retorna todas as arestas de entrada do grafo
     std::unordered_set<Aresta *> arestasS();              // retorna todas as arestas de saída do grafo
-    Aresta *getA(Vertice *u, Vertice *v);                 // retorna o vértice entre u e v (ou null)
+    std::vector<Aresta *> getA(Vertice *u, Vertice *v);   // retorna o vértice entre u e v (ou null)
     int grau(Vertice *v);                                 // retorna o grau do vértice v
     int grauE(Vertice *v);                                // retorna o grau do vértice v
     int grauS(Vertice *v);                                // retorna o grau do vértice v

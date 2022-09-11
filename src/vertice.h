@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <sstream>
+#include <list>
 
 class Aresta;
 
@@ -13,7 +14,7 @@ private:
     std::string identificador;
 
 public:
-    std::unordered_map<Vertice *, Aresta *> mapaAdjacencia;
+    std::unordered_map<Vertice *, std::list<Aresta *>> mapaAdjacencia;
 
     Vertice();
     Vertice(std::string identificador);

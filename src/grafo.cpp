@@ -61,26 +61,27 @@ Aresta *Grafo::insereA(Vertice *u, Vertice *v)
 {
     Aresta *a = new Aresta(u, v);
 
-    u->mapaAdjacencia[v] = a;
-    v->mapaAdjacencia[u] = a;
+    u->mapaAdjacencia[v].push_back(a);
+    v->mapaAdjacencia[u].push_back(a);
     return a;
 }
 
 Aresta *Grafo::insereA(Vertice *u, Vertice *v, std::string identificador)
 {
     Aresta *a = new Aresta(u, v, identificador);
-    u->mapaAdjacencia[v] = a;
-    v->mapaAdjacencia[u] = a;
+    u->mapaAdjacencia[v].push_back(a);
+    v->mapaAdjacencia[u].push_back(a);
     return a;
 }
 
-Aresta *Grafo::getA(Vertice *u, Vertice *v)
+std::vector<Aresta *> Grafo::getA(Vertice *u, Vertice *v)
 {
+    std::vector<Aresta *> arestas;
     if (u->mapaAdjacencia.find(v) != u->mapaAdjacencia.end())
     {
-        return u->mapaAdjacencia.at(v);
+        arestas = {std::begin(u->mapaAdjacencia.at(v)), std::end(u->mapaAdjacencia.at(v))};
     }
-    return nullptr;
+    return arestas;
 }
 
 int Grafo::grau(Vertice *v)
@@ -90,11 +91,12 @@ int Grafo::grau(Vertice *v)
     for (auto &keyValue : v->mapaAdjacencia)
     {
         Vertice *u = keyValue.first;
+        std::list<Aresta *> a = keyValue.second;
 
         if (u == v)
-            grau += 2;
+            grau += a.size() * 2;
         else
-            grau++;
+            grau += a.size();
     }
     return grau;
 }
@@ -134,27 +136,45 @@ void Grafo::removeA(Aresta *e)
     Vertice *v1 = e->getU();
     Vertice *v2 = e->getV();
 
-    // removendo o outro vértice do mapa de adjacência
-    v1->mapaAdjacencia.erase(v2); // removendo passando a chave
-    v2->mapaAdjacencia.erase(v1);
+    // variável para acesso do mapa de adjacência de cada vértice
+    std::unordered_map<Vertice *, std::list<Aresta *>> map_v1 = v1->mapaAdjacencia;
+    std::unordered_map<Vertice *, std::list<Aresta *>> map_v2 = v2->mapaAdjacencia;
 
-    // setando as referências da aresta para null
+    // removendo a aresta dos mapas dos vértices v1 e v2
+    map_v1.at(v2).remove(e);
+    map_v2.at(v1).remove(e);
+
+    // se a lista fica vazia naquela posição, vamos apagar o registro no mapa
+    if (map_v1.at(v2).empty())
+    {
+        map_v1.erase(v2);
+    }
+
+    if (map_v2.at(v1).empty())
+    {
+        map_v2.erase(v1);
+    }
+
+    // atribuindo null para as referências aos vértices da aresta
     e->setU(nullptr);
     e->setV(nullptr);
 
-    // apagando a aresta
+    // finalmente, apagando a aresta
     delete e;
 }
 
 void Grafo::removeV(Vertice *v)
 {
-    std::unordered_map<Vertice *, Aresta *> mapa = v->mapaAdjacencia;
+    std::unordered_map<Vertice *, std::list<Aresta *>> mapa = v->mapaAdjacencia;
 
     // remover cada aresta ligada a v
     for (auto &keyValue : mapa)
     {
-        auto &aresta = keyValue.second;
-        removeA(aresta);
+        std::list<Aresta *> arestas = keyValue.second;
+        for (auto a : arestas)
+        {
+            removeA(a);
+        }
     }
 
     // zerar mapa de adjacência do vértice
@@ -230,8 +250,11 @@ std::unordered_set<Aresta *> Grafo::arestas()
     {
         for (auto &keyValue : v->mapaAdjacencia)
         {
-            Aresta *a = keyValue.second;
-            arestas.insert(a);
+            std::list<Aresta *> arestasDoV = keyValue.second;
+            for (auto a : arestasDoV)
+            {
+                arestas.insert(a);
+            }
         }
     }
 
