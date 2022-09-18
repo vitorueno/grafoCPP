@@ -13,6 +13,8 @@
 
 #include "objetoIdentificado.h"
 
+#include <iostream>
+
 class GrafoDirigido : public ObjetoIdentificado
 {
 private:
@@ -38,7 +40,7 @@ public:
     std::unordered_set<ArestaDirigida *> arestas();                               // retorna todas as arestas do grafo
     std::unordered_set<ArestaDirigida *> arestasE(VerticeDirigido *v);            // retorna todas as arestas de entrada do grafo
     std::unordered_set<ArestaDirigida *> arestasS(VerticeDirigido *v);            // retorna todas as arestas de saída do grafo
-    ArestaDirigida *getA(VerticeDirigido *u, VerticeDirigido *v);                 // retorna o vértice entre u e v (ou null)
+    std::list<ArestaDirigida *> getA(VerticeDirigido *u, VerticeDirigido *v);     // retorna o vértice entre u e v (ou null)
     int grauE(VerticeDirigido *v);                                                // retorna o grau do vértice v
     int grauS(VerticeDirigido *v);                                                // retorna o grau do vértice v
     VerticeDirigido *oposto(VerticeDirigido *v, ArestaDirigida *e);               // retorna o vértice oposto a v na aresta e

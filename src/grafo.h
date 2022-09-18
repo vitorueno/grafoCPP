@@ -35,12 +35,9 @@ public:
                     std::string identificador);           // insere aresta com id entre u e v
     std::vector<Vertice *> adj(Vertice *v);               // vértices adjacentes ao vértice atual
     std::unordered_set<Aresta *> arestas();               // retorna todas as arestas do grafo
-    std::unordered_set<Aresta *> arestasE(Vertice *v);    // retorna todas as arestas de entrada do grafo
-    std::unordered_set<Aresta *> arestasS(Vertice *v);    // retorna todas as arestas de saída do grafo
-    Aresta *getA(Vertice *u, Vertice *v);                 // retorna o vértice entre u e v (ou null)
+    std::unordered_set<Aresta *> arestas(Vertice *v);     // retorna todas as arestas do vértice v
+    std::list<Aresta *> getA(Vertice *u, Vertice *v);     // retorna a  entre u e v (ou null)
     int grau(Vertice *v);                                 // retorna o grau do vértice v
-    int grauE(Vertice *v);                                // retorna o grau do vértice v
-    int grauS(Vertice *v);                                // retorna o grau do vértice v
     Vertice *oposto(Vertice *v, Aresta *e);               // retorna o vértice oposto a v na aresta e
     std::pair<Vertice *, Vertice *> verticesA(Aresta *e); // retorna o par de vértices conectados a aresta
     void removeA(Aresta *e);

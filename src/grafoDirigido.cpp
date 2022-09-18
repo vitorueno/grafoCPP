@@ -55,26 +55,29 @@ ArestaDirigida *GrafoDirigido::insereA(VerticeDirigido *u, VerticeDirigido *v)
 {
     ArestaDirigida *a = new ArestaDirigida(u, v);
 
-    u->mapaAdjacenciaS[v] = a;
-    v->mapaAdjacenciaE[u] = a;
+    u->mapaAdjacenciaS[v].push_back(a);
+    v->mapaAdjacenciaE[u].push_back(a);
+
     return a;
 }
 
 ArestaDirigida *GrafoDirigido::insereA(VerticeDirigido *u, VerticeDirigido *v, std::string identificador)
 {
     ArestaDirigida *a = new ArestaDirigida(u, v, identificador);
-    u->mapaAdjacenciaS[v] = a;
-    v->mapaAdjacenciaE[u] = a;
+    u->mapaAdjacenciaS[v].push_back(a);
+    v->mapaAdjacenciaE[u].push_back(a);
     return a;
 }
 
-ArestaDirigida *GrafoDirigido::getA(VerticeDirigido *u, VerticeDirigido *v)
+std::list<ArestaDirigida *> GrafoDirigido::getA(VerticeDirigido *u, VerticeDirigido *v)
 {
     if (u->mapaAdjacenciaS.find(v) != u->mapaAdjacenciaS.end())
     {
         return u->mapaAdjacenciaS.at(v);
     }
-    return nullptr;
+
+    std::list<ArestaDirigida *> vazia;
+    return vazia;
 }
 
 int GrafoDirigido::grauE(VerticeDirigido *v)
@@ -83,7 +86,11 @@ int GrafoDirigido::grauE(VerticeDirigido *v)
 
     for (auto &keyValue : v->mapaAdjacenciaE)
     {
-        grauE++;
+        std::list<ArestaDirigida *> arestas = keyValue.second;
+        for (auto &a : arestas)
+        {
+            grauE++;
+        }
     }
 
     return grauE;
@@ -95,7 +102,11 @@ int GrafoDirigido::grauS(VerticeDirigido *v)
 
     for (auto &keyValue : v->mapaAdjacenciaS)
     {
-        grauS++;
+        std::list<ArestaDirigida *> arestas = keyValue.second;
+        for (auto &a : arestas)
+        {
+            grauS++;
+        }
     }
 
     return grauS;
@@ -126,9 +137,27 @@ void GrafoDirigido::removeA(ArestaDirigida *e)
     VerticeDirigido *u = e->getU();
     VerticeDirigido *v = e->getV();
 
-    // removendo o outro vértice do mapa de adjacência
-    u->mapaAdjacenciaS.erase(v); // removendo passando a chave
-    v->mapaAdjacenciaE.erase(u);
+    // remove a aresta da lista de arestas dentro dos respectivos mapas
+    if (u->mapaAdjacenciaS.find(v) != u->mapaAdjacenciaS.end())
+    {
+        u->mapaAdjacenciaS.at(v).remove(e);
+
+        // se era a única aresta de u para v limpa os mapas
+        if (u->mapaAdjacenciaS.at(v).empty())
+        {
+            u->mapaAdjacenciaS.erase(v);
+        }
+    }
+    if (v->mapaAdjacenciaE.find(u) != v->mapaAdjacenciaE.end())
+    {
+        v->mapaAdjacenciaE.at(u).remove(e);
+
+        // se era a única aresta de u para v limpa os mapas
+        if (v->mapaAdjacenciaE.at(u).empty())
+        {
+            v->mapaAdjacenciaE.erase(v);
+        }
+    }
 
     // setando as referências da aresta para null
     e->setU(nullptr);
@@ -140,26 +169,27 @@ void GrafoDirigido::removeA(ArestaDirigida *e)
 
 void GrafoDirigido::removeV(VerticeDirigido *v)
 {
-    std::unordered_map<VerticeDirigido *, ArestaDirigida *> mapaE = v->mapaAdjacenciaE;
-    std::unordered_map<VerticeDirigido *, ArestaDirigida *> mapaS = v->mapaAdjacenciaS;
+    std::unordered_map<VerticeDirigido *, std::list<ArestaDirigida *>>
+        mapaE = v->mapaAdjacenciaE;
+    std::unordered_map<VerticeDirigido *, std::list<ArestaDirigida *>>
+        mapaS = v->mapaAdjacenciaS;
 
     // remover cada aresta que entra em v
-    for (auto &keyValue : mapaE)
+    for (auto &aE : arestasE(v))
     {
-        auto &aresta = keyValue.second;
-        removeA(aresta);
+        removeA(aE);
     }
 
     // remover cada aresta que sai de v
-    for (auto &keyValue : mapaS)
+    for (auto &aS : arestasS(v))
     {
-        auto &aresta = keyValue.second;
-        removeA(aresta);
+        // if (aS->getU() != aS->getV())
+        removeA(aS);
     }
 
     // zerar mapa de adjacência do vértice
-    mapaE.erase(mapaE.begin(), mapaE.end());
-    mapaS.erase(mapaS.begin(), mapaS.end());
+    mapaE.clear();
+    mapaS.clear();
 
     // remover vértice da lista do grafo
     listaVertices.remove(v);
@@ -229,12 +259,15 @@ std::unordered_set<ArestaDirigida *> GrafoDirigido::arestas()
 {
     std::unordered_set<ArestaDirigida *> todasArestas;
 
-    for (auto &v : listaVertices)
+    for (auto &v : listaVertices) // para cada vértice v
     {
-        for (auto &keyValue : v->mapaAdjacenciaS)
+        for (auto &keyValue : v->mapaAdjacenciaS) // para cada adj de v
         {
-            ArestaDirigida *a = keyValue.second;
-            todasArestas.insert(a);
+            std::list<ArestaDirigida *> arestas = keyValue.second;
+            for (auto &a : arestas) // adiciona cada aresta adjacente ao conjunto
+            {
+                todasArestas.insert(a);
+            }
         }
     }
 
@@ -247,8 +280,11 @@ std::unordered_set<ArestaDirigida *> GrafoDirigido::arestasE(VerticeDirigido *v)
 
     for (auto &keyValue : v->mapaAdjacenciaE)
     {
-        ArestaDirigida *a = keyValue.second;
-        arestasE.insert(a);
+        std::list<ArestaDirigida *> listaArestas = keyValue.second;
+        for (auto &a : listaArestas)
+        {
+            arestasE.insert(a);
+        }
     }
 
     return arestasE;
@@ -260,8 +296,11 @@ std::unordered_set<ArestaDirigida *> GrafoDirigido::arestasS(VerticeDirigido *v)
 
     for (auto &keyValue : v->mapaAdjacenciaS)
     {
-        ArestaDirigida *a = keyValue.second;
-        arestasS.insert(a);
+        std::list<ArestaDirigida *> listaArestas = keyValue.second;
+        for (auto &a : listaArestas)
+        {
+            arestasS.insert(a);
+        }
     }
 
     return arestasS;

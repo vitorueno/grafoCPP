@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <sstream>
+#include <list>
 
 #include "objetoIdentificado.h"
 
@@ -12,8 +13,8 @@ class ArestaDirigida;
 class VerticeDirigido : public ObjetoIdentificado
 {
 public:
-    std::unordered_map<VerticeDirigido *, ArestaDirigida *> mapaAdjacenciaE;
-    std::unordered_map<VerticeDirigido *, ArestaDirigida *> mapaAdjacenciaS;
+    std::unordered_map<VerticeDirigido *, std::list<ArestaDirigida *>> mapaAdjacenciaE;
+    std::unordered_map<VerticeDirigido *, std::list<ArestaDirigida *>> mapaAdjacenciaS;
 
     VerticeDirigido();
     VerticeDirigido(std::string identificador);
@@ -23,4 +24,4 @@ public:
     std::string toString();
 };
 
-#endif // __VERTICEDIRIGIDO_H__
+#endif
