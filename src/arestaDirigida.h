@@ -30,4 +30,4 @@ public:
     std::string toString();
 };
 
-#endif // __ARESTADIRIGIDA_H__
+#endif

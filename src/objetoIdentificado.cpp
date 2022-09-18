@@ -18,19 +18,6 @@ void ObjetoIdentificado::setIdentificador(std::string identificador)
     ObjetoIdentificado::identificador = identificador;
 }
 
-// std::string ObjetoIdentificado::toString()
-// {
-//     std::ostringstream ss;
-//     ss << identificador;
-//     return ss.str();
-// }
-
-// std::ostream &operator<<(std::ostream &os, const ObjetoIdentificado &v)
-// {
-//     os << "Objeto <" << v.identificador << "> ";
-//     return os;
-// }
-
 std::string ObjetoIdentificado::getIdentificador()
 {
     return identificador;

@@ -77,20 +77,12 @@ ArestaDirigida *GrafoDirigido::getA(VerticeDirigido *u, VerticeDirigido *v)
     return nullptr;
 }
 
-// int GrafoDirigido::grau(VerticeDirigido *v)
-// {
-// }
-
 int GrafoDirigido::grauE(VerticeDirigido *v)
 {
     int grauE = 0;
 
     for (auto &keyValue : v->mapaAdjacenciaE)
     {
-        // VerticeDirigido *u = keyValue.first;
-
-        // if (u == v)
-        //     grauE += 2;
         grauE++;
     }
 
@@ -103,11 +95,6 @@ int GrafoDirigido::grauS(VerticeDirigido *v)
 
     for (auto &keyValue : v->mapaAdjacenciaS)
     {
-        // VerticeDirigido *u = keyValue.first;
-
-        // if (u == v)
-        // grauS += 2;
-        // else
         grauS++;
     }
 
@@ -282,7 +269,6 @@ std::unordered_set<ArestaDirigida *> GrafoDirigido::arestasS(VerticeDirigido *v)
 
 std::pair<VerticeDirigido *, VerticeDirigido *> GrafoDirigido::verticesA(ArestaDirigida *e)
 {
-    // u = origem
-    // e = destino
+    // u = origem; e = destino
     return std::pair<VerticeDirigido *, VerticeDirigido *>(e->getU(), e->getV());
 }
