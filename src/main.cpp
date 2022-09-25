@@ -59,34 +59,26 @@ void testaGrafo()
         cout << *v << endl;
     }
 
-    cout << "\nnúmero de arestas:\n";
+    cout << "\nnúmero de arestas: (espera-se 5)\n";
     cout << g.getTamanho() << endl;
 
-    cout << "\nacessando a aresta a partir de dois vértices\n";
-    Aresta *a = g.getA(v1, v2).back();
+    cout << "\nacessando a aresta a partir de dois vértices: v1 e v2\n";
+    Aresta *a = g.getA(v1, v2).front();
     cout << *a << endl;
 
-    cout << "\nverificando o grau do vértice v1\n";
+    cout << "\nverificando o grau do vértice v1 (espera-se 5)\n";
     cout << g.grau(v1) << endl;
 
-    cout << "\npegar vértice oposto a um vértice em uma aresta\n";
+    cout << "\npegar vértice oposto a um vértice em uma aresta: v1 e vértice a1 (espera-se v2)\n";
     Vertice *oposto = g.oposto(v1, a1);
+    cout << *oposto << endl;
 
-    if (oposto == v2)
-    {
-        cout << "conseguiu pegar o oposto: " << *oposto << endl;
-    }
-
-    cout << "\npegar par de vértices de uma aresta\n";
+    cout << "\npegar par de vértices a partir de uma aresta: a1 (espera-se v1 e v2)\n";
     pair<Vertice *, Vertice *> parVertices = g.verticesA(a1);
-    if (parVertices.first == v1 && parVertices.second == v2)
-    {
-        cout << "o par coincide com os vértices esperados: ";
-        cout << *parVertices.first << " e " << *parVertices.second << endl;
-    }
+    cout << *parVertices.first << "e " << *parVertices.second << endl;
 
     // removendo uma aresta
-    cout << "\nremovendo a aresta a4. Arestas restantes:\n";
+    cout << "\nremovendo a aresta a4. Arestas restantes: (espera-se a1, a2, a3, a5)\n";
 
     g.removeA(a4);
 
@@ -96,7 +88,7 @@ void testaGrafo()
     }
 
     // removendo um vértice
-    cout << "\nremovendo o vértice v1. Vértices e arestas restantes:\n";
+    cout << "\nremovendo o vértice v1. Vértices e arestas restantes: (espera-se não haver mais vértice v1)\n";
 
     g.removeV(v1);
 
@@ -151,32 +143,22 @@ void testaDigrafo()
         cout << *v << endl;
     }
 
-    cout << "\nacessando a aresta a partir de dois vértices\n";
+    cout << "\nacessando a aresta a partir de dois vértices: v1 e v2 (espera-se a1)\n";
     ArestaDirigida *arestaUparaV = dg.getA(v1, v2).front();
     cout << *arestaUparaV << endl;
-    // if (arestaUparaV == a1)
-    // {
-    //     cout << "\nmétodo getA funcionou pois conseguiu pegar o a1: " << *arestaUparaV << endl;
-    // }
 
-    cout << "\ngrau de entrada do v1: " << dg.grauE(v1) << endl;
-    cout << "grau de saída do v1: " << dg.grauS(v1) << endl;
+    cout << "\ngrau de entrada do v1 (espera-se 2): " << dg.grauE(v1) << endl;
+    cout << "grau de saída do v1 (espera-se 4): " << dg.grauS(v1) << endl;
 
+    cout << "\nacessando vértices a partir de uma aresta: a1 (espera-se v1 e v2) ";
     pair<VerticeDirigido *, VerticeDirigido *> par = dg.verticesA(a1);
-    if (par.first == v1 && par.second == v2)
-    {
-        cout << "\nmétodo verticesA funcionou pois conseguiu pegar ";
-        cout << *par.first << " e " << *par.second << endl;
-    }
+    cout << *par.first << " e " << *par.second << endl;
 
+    cout << "\nacessando vértice oposto a v1 na aresta a1 (espera-se v2)";
     VerticeDirigido *oposto = dg.oposto(v1, a1);
-    if (oposto == v2)
-    {
-        cout << "\nmétodo oposto funcionou pois conseguiu pegar v2 a partir de v1 e a1: ";
-        cout << *oposto << endl;
-    }
+    cout << *oposto << endl;
 
-    cout << "\nRemovendo a aresta a1. Arestas restantes:\n";
+    cout << "\nRemovendo a aresta a1. Arestas restantes: (espera-se a2, a3, a4, a5)\n";
     dg.removeA(a1);
 
     for (auto &a : dg.arestas())
@@ -184,7 +166,7 @@ void testaDigrafo()
         cout << *a << endl;
     }
 
-    cout << "\nRemovendo o vértice v1. Vértices e arestas restantes: \n";
+    cout << "\nRemovendo o vértice v1. Vértices e arestas restantes: (espera-se não haver mais v1)\n";
     dg.removeV(v1);
 
     for (auto &v : dg.vertices())
@@ -200,7 +182,10 @@ void testaDigrafo()
 
 int main(int argc, char *argv[])
 {
-    // testaGrafo();
+    cout << "===========================teste do grafo não dirigido===========================\n";
+    testaGrafo();
+
+    cout << "\n===========================teste do grafo dirigido===========================\n";
     testaDigrafo();
     return 0;
 }

@@ -16,4 +16,4 @@ add_executable( a.out ./src/main.cpp ./src/objetoIdentificado.cpp ./src/aresta.c
 
 
 # linha para compilar para debug (comentar para otimizar compilação)
-set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Debug)

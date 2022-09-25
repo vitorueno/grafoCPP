@@ -17,7 +17,7 @@ public:
     std::string getIdentificador();
     void setIdentificador(std::string identificador);
 
-    std::string toString();
+    virtual std::string toString();
 };
 
 #endif // __OBJETOIDENTIFICADO_H__
