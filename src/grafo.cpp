@@ -178,13 +178,6 @@ std::ostream &operator<<(std::ostream &os, const Grafo &g)
     return os;
 }
 
-std::string Grafo::toString()
-{
-    std::ostringstream ss;
-    ss << identificador;
-    return ss.str();
-}
-
 std::vector<Vertice *> Grafo::vertices()
 {
     // copiando o conteúdo da lista para um vector

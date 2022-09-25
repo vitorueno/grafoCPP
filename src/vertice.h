@@ -20,7 +20,6 @@ public:
     ~Vertice();
 
     friend std::ostream &operator<<(std::ostream &os, const Vertice &v);
-    std::string toString();
 };
 
 #endif

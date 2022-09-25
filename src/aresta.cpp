@@ -43,13 +43,6 @@ void Aresta::setV(Vertice *v)
     Aresta::v = v;
 }
 
-std::string Aresta::toString()
-{
-    std::ostringstream ss;
-    ss << identificador;
-    return ss.str();
-}
-
 std::ostream &operator<<(std::ostream &os, const Aresta &a)
 {
     os << "Aresta <" << a.identificador << "> (" << a.u->getIdentificador()

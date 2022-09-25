@@ -27,7 +27,6 @@ public:
     void setV(Vertice *v);
 
     friend std::ostream &operator<<(std::ostream &os, const Aresta &a);
-    std::string toString();
 };
 
 #endif

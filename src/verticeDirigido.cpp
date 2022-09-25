@@ -17,10 +17,3 @@ std::ostream &operator<<(std::ostream &os, const VerticeDirigido &v)
     os << "Vértice <" << v.identificador << "> ";
     return os;
 }
-
-std::string VerticeDirigido::toString()
-{
-    std::ostringstream ss;
-    ss << identificador;
-    return ss.str();
-}

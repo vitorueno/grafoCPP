@@ -43,13 +43,6 @@ void ArestaDirigida::setV(VerticeDirigido *v)
     ArestaDirigida::v = v;
 }
 
-std::string ArestaDirigida::toString()
-{
-    std::ostringstream ss;
-    ss << identificador;
-    return ss.str();
-}
-
 std::ostream &operator<<(std::ostream &os, const ArestaDirigida &a)
 {
     os << "ArestaDirigida <" << a.identificador << "> (" << a.u->getIdentificador()

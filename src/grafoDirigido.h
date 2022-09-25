@@ -51,7 +51,6 @@ public:
     // métodos da minha implementação
     VerticeDirigido *getV(std::string identificador); // retorna o vértice com esse identificador
     friend std::ostream &operator<<(std::ostream &os, const GrafoDirigido &g);
-    std::string toString();
 };
 
 #endif

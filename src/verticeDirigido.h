@@ -21,7 +21,6 @@ public:
     ~VerticeDirigido();
 
     friend std::ostream &operator<<(std::ostream &os, const VerticeDirigido &v);
-    std::string toString();
 };
 
 #endif

@@ -216,13 +216,6 @@ std::ostream &operator<<(std::ostream &os, const GrafoDirigido &g)
     return os;
 }
 
-std::string GrafoDirigido::toString()
-{
-    std::ostringstream ss;
-    ss << identificador;
-    return ss.str();
-}
-
 std::vector<VerticeDirigido *> GrafoDirigido::vertices()
 {
     // copiando o conteúdo da lista para um vector

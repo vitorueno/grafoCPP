@@ -27,7 +27,6 @@ public:
     void setV(VerticeDirigido *v);
 
     friend std::ostream &operator<<(std::ostream &os, const ArestaDirigida &a);
-    std::string toString();
 };
 
 #endif
