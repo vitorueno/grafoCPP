@@ -14,6 +14,9 @@ using namespace std;
 #include "verticeDirigido.h"
 #include "arestaDirigida.h"
 
+#include "buscaLargura.h"
+#include "buscaProfundidade.h"
+
 void testaGrafo()
 {
     Grafo g("g1");
@@ -180,12 +183,80 @@ void testaDigrafo()
     }
 }
 
+void testaBuscaLargura()
+{
+    Grafo g("g");
+    Vertice *s = g.insereV("s");
+    Vertice *r = g.insereV("r");
+    Vertice *v = g.insereV("v");
+    Vertice *w = g.insereV("w");
+    Vertice *t = g.insereV("t");
+    Vertice *u = g.insereV("u");
+    Vertice *x = g.insereV("x");
+    Vertice *y = g.insereV("y");
+
+    g.insereA(s, r, "a1");
+    g.insereA(s, w, "a2");
+    g.insereA(r, v, "a3");
+    g.insereA(w, t, "a4");
+    g.insereA(w, x, "a5");
+    g.insereA(t, x, "a6");
+    g.insereA(t, u, "a7");
+    g.insereA(x, u, "a8");
+    g.insereA(x, y, "a9");
+    g.insereA(y, u, "a10");
+
+    cout << "=============================busca em largura=============================\n";
+    BuscaLargura b;
+    b.BFS(&g, s);
+
+    cout << "\ncaminho de s para u:\n";
+    b.imprimeCaminho(&g, s, u);
+
+    cout << "\ncaminho de s para y:\n";
+    b.imprimeCaminho(&g, s, y);
+
+    b.BFS(&g, v);
+
+    cout << "\ncaminho de v para y:\n";
+    b.imprimeCaminho(&g, v, y);
+}
+
+void testaBuscaProfundidade()
+{
+    GrafoDirigido g("g");
+    VerticeDirigido *u = g.insereV("u");
+    VerticeDirigido *v = g.insereV("v");
+    VerticeDirigido *x = g.insereV("x");
+    VerticeDirigido *y = g.insereV("y");
+    VerticeDirigido *w = g.insereV("w");
+    VerticeDirigido *z = g.insereV("z");
+
+    g.insereA(u, v, "a1");
+    g.insereA(u, x, "a2");
+    g.insereA(v, y, "a3");
+    g.insereA(y, x, "a4");
+    g.insereA(x, v, "a5");
+    g.insereA(w, y, "a6");
+    g.insereA(w, z, "a7");
+    g.insereA(z, z, "a8");
+
+    cout << "=============================busca em profundidade=============================\n";
+    BuscaProfundidade b;
+    b.DFS(&g);
+
+    b.mostraInformacao(&g);
+}
+
 int main(int argc, char *argv[])
 {
-    cout << "===========================teste do grafo não dirigido===========================\n";
-    testaGrafo();
+    // cout << "===========================teste do grafo não dirigido===========================\n";
+    // testaGrafo();
 
-    cout << "\n===========================teste do grafo dirigido===========================\n";
-    testaDigrafo();
+    // cout << "\n===========================teste do grafo dirigido===========================\n";
+    // testaDigrafo();
+
+    // testaBuscaLargura();
+    testaBuscaProfundidade();
     return 0;
 }
