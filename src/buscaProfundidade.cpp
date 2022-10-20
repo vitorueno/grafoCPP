@@ -21,13 +21,48 @@ void BuscaProfundidade::DFS(Grafo *g)
     for (auto u : g->vertices())
     {
         if (cor[u] == branco)
-        {
             DFS_visit(g, u);
-        }
     }
 }
 
 void BuscaProfundidade::DFS_visit(Grafo *g, Vertice *u)
+{
+    cor[u] = cinza;
+    tempo += 1;
+    d[u] = tempo;
+
+    for (auto v : g->adj(u))
+    {
+        if (cor[v] == branco)
+        {
+            pi[v] = u;
+            DFS_visit(g, v);
+        }
+    }
+
+    cor[u] = preto;
+    tempo++;
+    f[u] = tempo;
+}
+
+void BuscaProfundidade::DFS(GrafoDirigido *g)
+{
+    for (auto v : g->vertices())
+    {
+        cor[v] = branco;
+        pi[v] = nullptr;
+    }
+
+    tempo = 0;
+
+    for (auto u : g->vertices())
+    {
+        if (cor[u] == branco)
+            DFS_visit(g, u);
+    }
+}
+
+void BuscaProfundidade::DFS_visit(GrafoDirigido *g, Vertice *u)
 {
     cor[u] = cinza;
     tempo += 1;
@@ -56,9 +91,7 @@ void BuscaProfundidade::imprimeCaminho(Grafo *g, Vertice *s, Vertice *v)
     else
     {
         if (pi[v] == nullptr)
-        {
             std::cout << "não existe caminho de s para v\n";
-        }
         else
         {
             imprimeCaminho(g, s, pi[v]);
@@ -73,13 +106,9 @@ void BuscaProfundidade::mostraInformacao(Grafo *g)
     {
         std::cout << *v << "\n";
         if (pi[v] != nullptr)
-        {
             std::cout << "predecessor: " << *(pi[v]) << "\n";
-        }
         else
-        {
             std::cout << "predecessor: nulo\n";
-        }
 
         std::cout << "tempo de abertura: " << d[v] << "\n";
         std::cout << "tempo de fechamento: " << f[v] << "\n";

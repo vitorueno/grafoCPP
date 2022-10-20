@@ -249,12 +249,12 @@ void testaBuscaProfundidade()
 int main(int argc, char *argv[])
 {
     // cout << "===========================teste do grafo não dirigido===========================\n";
-    testaGrafo();
+    // testaGrafo();
 
     // cout << "\n===========================teste do grafo dirigido===========================\n";
-    testaDigrafo();
+    // testaDigrafo();
 
-    testaBuscaLargura();
+    // testaBuscaLargura();
     testaBuscaProfundidade();
     return 0;
 }

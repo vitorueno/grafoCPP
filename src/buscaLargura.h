@@ -2,6 +2,7 @@
 #define __BUSCALARGURA_H__
 
 #include "grafo.h"
+#include "grafoDirigido.h"
 #include "aresta.h"
 #include "vertice.h"
 
@@ -32,6 +33,7 @@ public:
 
     void imprimeCaminho(Grafo *g, Vertice *s, Vertice *v);
     void BFS(Grafo *g, Vertice *s);
+    void BFS(GrafoDirigido *g, Vertice *s);
 };
 
 #endif // __BUSCALARGURA_H__

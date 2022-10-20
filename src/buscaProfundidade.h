@@ -2,6 +2,7 @@
 #define __BUSCAPROFUNDIDADE_H__
 
 #include "grafo.h"
+#include "grafoDirigido.h"
 #include "vertice.h"
 #include <limits>
 #include <unordered_map>
@@ -30,6 +31,8 @@ public:
 
     void DFS(Grafo *g);
     void DFS_visit(Grafo *g, Vertice *u);
+    void DFS(GrafoDirigido *g);
+    void DFS_visit(GrafoDirigido *g, Vertice *u);
     void mostraInformacao(Grafo *g);
     void imprimeCaminho(Grafo *g, Vertice *s, Vertice *v);
 };
