@@ -8,7 +8,7 @@ BuscaProfundidade::~BuscaProfundidade()
 {
 }
 
-void BuscaProfundidade::DFS(GrafoDirigido *g)
+void BuscaProfundidade::DFS(Grafo *g)
 {
     for (auto v : g->vertices())
     {
@@ -27,7 +27,7 @@ void BuscaProfundidade::DFS(GrafoDirigido *g)
     }
 }
 
-void BuscaProfundidade::DFS_visit(GrafoDirigido *g, VerticeDirigido *u)
+void BuscaProfundidade::DFS_visit(Grafo *g, Vertice *u)
 {
     cor[u] = cinza;
     tempo += 1;
@@ -47,7 +47,7 @@ void BuscaProfundidade::DFS_visit(GrafoDirigido *g, VerticeDirigido *u)
     f[u] = tempo;
 }
 
-void BuscaProfundidade::imprimeCaminho(GrafoDirigido *g, VerticeDirigido *s, VerticeDirigido *v)
+void BuscaProfundidade::imprimeCaminho(Grafo *g, Vertice *s, Vertice *v)
 {
     if (v == s)
     {
@@ -67,7 +67,7 @@ void BuscaProfundidade::imprimeCaminho(GrafoDirigido *g, VerticeDirigido *s, Ver
     }
 }
 
-void BuscaProfundidade::mostraInformacao(GrafoDirigido *g)
+void BuscaProfundidade::mostraInformacao(Grafo *g)
 {
     for (auto v : g->vertices())
     {

@@ -14,6 +14,7 @@ class Vertice : public ObjetoIdentificado
 {
 public:
     std::unordered_map<Vertice *, std::list<Aresta *>> mapaAdjacencia;
+    std::unordered_map<Vertice *, std::list<Aresta *>> mapaAdjacenciaS;
 
     Vertice();
     Vertice(std::string identificador);

@@ -14,7 +14,7 @@
 
 class Grafo : public ObjetoIdentificado
 {
-private:
+protected:
     std::list<Vertice *> listaVertices;
 
     void limpar(); // liberar recursos criados dinamicamente
@@ -22,7 +22,7 @@ private:
 public:
     Grafo();
     Grafo(std::string identificador);
-    ~Grafo();
+    virtual ~Grafo();
 
     // métodos do grafo
     std::vector<Vertice *> vertices();                    // retorna um iterator dos vértices
@@ -48,4 +48,4 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Grafo &g);
 };
 
-#endif
+#endif // __GRAFO_H__

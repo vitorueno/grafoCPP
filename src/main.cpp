@@ -8,18 +8,16 @@
 using namespace std;
 
 #include "vertice.h"
-#include "grafo.h"
+#include "grafoNaoDirigido.h"
 #include "aresta.h"
 #include "grafoDirigido.h"
-#include "verticeDirigido.h"
-#include "arestaDirigida.h"
 
 #include "buscaLargura.h"
 #include "buscaProfundidade.h"
 
 void testaGrafo()
 {
-    Grafo g("g1");
+    GrafoNaoDirigido g("g1");
     cout << g << endl;
 
     // inserindo vértices
@@ -111,16 +109,16 @@ void testaDigrafo()
     GrafoDirigido dg("digrafo 1");
     cout << dg << endl;
 
-    VerticeDirigido *v1 = dg.insereV("v1");
-    VerticeDirigido *v2 = dg.insereV("v2");
-    VerticeDirigido *v3 = dg.insereV("v3");
+    Vertice *v1 = dg.insereV("v1");
+    Vertice *v2 = dg.insereV("v2");
+    Vertice *v3 = dg.insereV("v3");
 
-    ArestaDirigida *a1 = dg.insereA(v1, v2, "a1");
-    ArestaDirigida *a2 = dg.insereA(v1, v3, "a2");
-    ArestaDirigida *a3 = dg.insereA(v3, v1, "a3");
-    ArestaDirigida *a4 = dg.insereA(v1, v2, "a4 (paralela)");
-    ArestaDirigida *a5 = dg.insereA(v1, v1, "a5 (laço)");
-    // ArestaDirigida *a3 = dg.insereA(v3, v1, "a3");
+    Aresta *a1 = dg.insereA(v1, v2, "a1");
+    Aresta *a2 = dg.insereA(v1, v3, "a2");
+    Aresta *a3 = dg.insereA(v3, v1, "a3");
+    Aresta *a4 = dg.insereA(v1, v2, "a4 (paralela)");
+    Aresta *a5 = dg.insereA(v1, v1, "a5 (laço)");
+    // Aresta *a3 = dg.insereA(v3, v1, "a3");
 
     cout << "\ntodos os vértices\n";
     for (auto &v : dg.vertices())
@@ -147,18 +145,18 @@ void testaDigrafo()
     }
 
     cout << "\nacessando a aresta a partir de dois vértices: v1 e v2 (espera-se a1)\n";
-    ArestaDirigida *arestaUparaV = dg.getA(v1, v2).front();
+    Aresta *arestaUparaV = dg.getA(v1, v2).front();
     cout << *arestaUparaV << endl;
 
     cout << "\ngrau de entrada do v1 (espera-se 2): " << dg.grauE(v1) << endl;
     cout << "grau de saída do v1 (espera-se 4): " << dg.grauS(v1) << endl;
 
     cout << "\nacessando vértices a partir de uma aresta: a1 (espera-se v1 e v2) ";
-    pair<VerticeDirigido *, VerticeDirigido *> par = dg.verticesA(a1);
+    pair<Vertice *, Vertice *> par = dg.verticesA(a1);
     cout << *par.first << " e " << *par.second << endl;
 
     cout << "\nacessando vértice oposto a v1 na aresta a1 (espera-se v2)";
-    VerticeDirigido *oposto = dg.oposto(v1, a1);
+    Vertice *oposto = dg.oposto(v1, a1);
     cout << *oposto << endl;
 
     cout << "\nRemovendo a aresta a1. Arestas restantes: (espera-se a2, a3, a4, a5)\n";
@@ -185,7 +183,7 @@ void testaDigrafo()
 
 void testaBuscaLargura()
 {
-    Grafo g("g");
+    GrafoNaoDirigido g("g");
     Vertice *s = g.insereV("s");
     Vertice *r = g.insereV("r");
     Vertice *v = g.insereV("v");
@@ -225,12 +223,12 @@ void testaBuscaLargura()
 void testaBuscaProfundidade()
 {
     GrafoDirigido g("g");
-    VerticeDirigido *u = g.insereV("u");
-    VerticeDirigido *v = g.insereV("v");
-    VerticeDirigido *x = g.insereV("x");
-    VerticeDirigido *y = g.insereV("y");
-    VerticeDirigido *w = g.insereV("w");
-    VerticeDirigido *z = g.insereV("z");
+    Vertice *u = g.insereV("u");
+    Vertice *v = g.insereV("v");
+    Vertice *x = g.insereV("x");
+    Vertice *y = g.insereV("y");
+    Vertice *w = g.insereV("w");
+    Vertice *z = g.insereV("z");
 
     g.insereA(u, v, "a1");
     g.insereA(u, x, "a2");
@@ -251,12 +249,12 @@ void testaBuscaProfundidade()
 int main(int argc, char *argv[])
 {
     // cout << "===========================teste do grafo não dirigido===========================\n";
-    // testaGrafo();
+    testaGrafo();
 
     // cout << "\n===========================teste do grafo dirigido===========================\n";
-    // testaDigrafo();
+    testaDigrafo();
 
-    // testaBuscaLargura();
+    testaBuscaLargura();
     testaBuscaProfundidade();
     return 0;
 }
