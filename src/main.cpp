@@ -14,6 +14,7 @@ using namespace std;
 
 #include "buscaLargura.h"
 #include "buscaProfundidade.h"
+#include "conexidade.h"
 
 void testaGrafo()
 {
@@ -246,6 +247,58 @@ void testaBuscaProfundidade()
     b.mostraInformacao(&g);
 }
 
+void testaConexidade()
+{
+    Grafo gr("conexidade");
+    Vertice *a = gr.insereV("a");
+    Vertice *b = gr.insereV("b");
+    Vertice *c = gr.insereV("c");
+    Vertice *d = gr.insereV("d");
+
+    Vertice *e = gr.insereV("e");
+    Vertice *f = gr.insereV("f");
+    Vertice *g = gr.insereV("g");
+
+    Vertice *h = gr.insereV("h");
+    Vertice *i = gr.insereV("i");
+    Vertice *j = gr.insereV("j");
+
+    gr.insereA(a, b);
+    gr.insereA(a, c);
+    gr.insereA(b, c);
+    gr.insereA(b, d);
+
+    gr.insereA(e, f);
+    gr.insereA(e, g);
+
+    gr.insereA(h, i);
+
+    Conexidade con;
+
+    con.compomenteConexo(&gr);
+
+    if (con.mesmoComponente(a, b) && con.mesmoComponente(a, c) &&
+        con.mesmoComponente(a, d))
+    {
+        cout << "a, b, c e d pertencem à mesma componente\n";
+    }
+
+    if (con.mesmoComponente(e, f) && con.mesmoComponente(e, g))
+    {
+        cout << "e, f e g pertencem à mesma componente\n";
+    }
+
+    if (con.mesmoComponente(h, i))
+    {
+        cout << "h e i pertencem à mesma componente\n";
+    }
+
+    if (!con.mesmoComponente(h, j))
+    {
+        cout << "h e j não pertecem à mesma componente conexa\n";
+    }
+}
+
 int main(int argc, char *argv[])
 {
     // cout << "===========================teste do grafo não dirigido===========================\n";
@@ -255,6 +308,8 @@ int main(int argc, char *argv[])
     // testaDigrafo();
 
     // testaBuscaLargura();
-    testaBuscaProfundidade();
+    // testaBuscaProfundidade();
+
+    testaConexidade();
     return 0;
 }
