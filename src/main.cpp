@@ -15,6 +15,7 @@ using namespace std;
 #include "buscaLargura.h"
 #include "buscaProfundidade.h"
 #include "conexidade.h"
+#include "kruskal.h"
 
 void testaGrafo()
 {
@@ -299,6 +300,53 @@ void testaConexidade()
     }
 }
 
+void testaKruskal()
+{
+    Grafo gr("kruskal");
+    Vertice *a = gr.insereV("a");
+    Vertice *b = gr.insereV("b");
+    Vertice *c = gr.insereV("c");
+    Vertice *d = gr.insereV("d");
+    Vertice *e = gr.insereV("e");
+    Vertice *f = gr.insereV("f");
+    Vertice *g = gr.insereV("g");
+    Vertice *h = gr.insereV("h");
+    Vertice *i = gr.insereV("i");
+
+    Aresta *ab = gr.insereA(a, b);
+    Aresta *ah = gr.insereA(a, h);
+    Aresta *bc = gr.insereA(b, c);
+    Aresta *bh = gr.insereA(b, h);
+    Aresta *cd = gr.insereA(c, d);
+    Aresta *ci = gr.insereA(c, i);
+    Aresta *cf = gr.insereA(c, f);
+    Aresta *de = gr.insereA(d, e);
+    Aresta *df = gr.insereA(d, f);
+    Aresta *ef = gr.insereA(e, f);
+    Aresta *fg = gr.insereA(f, g);
+    Aresta *ig = gr.insereA(i, g);
+    Aresta *gh = gr.insereA(g, h);
+    Aresta *hi = gr.insereA(h, i);
+
+    Kruskal k;
+    k.setCustoAresta(ab, 4);
+    k.setCustoAresta(ah, 8);
+    k.setCustoAresta(bc, 8);
+    k.setCustoAresta(bh, 11);
+    k.setCustoAresta(cd, 7);
+    k.setCustoAresta(ci, 2);
+    k.setCustoAresta(cf, 4);
+    k.setCustoAresta(de, 9);
+    k.setCustoAresta(df, 14);
+    k.setCustoAresta(ef, 10);
+    k.setCustoAresta(fg, 2);
+    k.setCustoAresta(gh, 1);
+    k.setCustoAresta(ig, 6);
+    k.setCustoAresta(hi, 7);
+
+    k.kruskal(&gr);
+}
+
 int main(int argc, char *argv[])
 {
     // cout << "===========================teste do grafo não dirigido===========================\n";
@@ -310,6 +358,8 @@ int main(int argc, char *argv[])
     // testaBuscaLargura();
     // testaBuscaProfundidade();
 
-    testaConexidade();
+    // testaConexidade();
+
+    testaKruskal();
     return 0;
 }

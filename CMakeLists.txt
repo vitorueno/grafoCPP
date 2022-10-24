@@ -12,7 +12,7 @@ project(grafoCPP)
 include_directories(  ./src  )
 
 # target
-add_executable( a.out ./src/main.cpp ./src/objetoIdentificado.cpp ./src/aresta.cpp ./src/vertice.cpp ./src/grafo.cpp ./src/grafoNaoDirigido.cpp  ./src/grafoDirigido.cpp ./src/buscaLargura.cpp ./src/buscaProfundidade.cpp ./src/conexidade.cpp)
+add_executable( a.out ./src/main.cpp ./src/objetoIdentificado.cpp ./src/aresta.cpp ./src/vertice.cpp ./src/grafo.cpp ./src/grafoNaoDirigido.cpp  ./src/grafoDirigido.cpp ./src/buscaLargura.cpp ./src/buscaProfundidade.cpp ./src/set.cpp ./src/conexidade.cpp ./src/kruskal.cpp)
 
 
 # linha para compilar para debug (comentar para otimizar compilação)
