@@ -45,6 +45,7 @@ public:
 
     // métodos da minha implementação
     Vertice *getV(std::string identificador); // retorna o vértice com esse identificador
+    Aresta *getA(std::string identificador);
     friend std::ostream &operator<<(std::ostream &os, const Grafo &g);
 };
 

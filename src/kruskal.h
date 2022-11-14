@@ -24,11 +24,13 @@ public:
     Kruskal();
     ~Kruskal();
 
-    Grafo kruskal(Grafo *g);
+    Grafo *kruskal(Grafo *g);
 
     void setCustoAresta(Aresta *a, int custo);
 
     // std::vector<int> getVectorCusto();
+
+    void imprimeArvoreCustoMinimo(Grafo *a, Grafo *g);
 };
 
 #endif // __KRUSKAL_H__

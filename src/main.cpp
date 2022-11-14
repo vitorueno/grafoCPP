@@ -206,7 +206,6 @@ void testaBuscaLargura()
     g.insereA(x, y, "a9");
     g.insereA(y, u, "a10");
 
-    cout << "=============================busca em largura=============================\n";
     BuscaLargura b;
     b.BFS(&g, s);
 
@@ -241,7 +240,6 @@ void testaBuscaProfundidade()
     g.insereA(w, z, "a7");
     g.insereA(z, z, "a8");
 
-    cout << "=============================busca em profundidade=============================\n";
     BuscaProfundidade b;
     b.DFS(&g);
 
@@ -344,22 +342,37 @@ void testaKruskal()
     k.setCustoAresta(ig, 6);
     k.setCustoAresta(hi, 7);
 
-    k.kruskal(&gr);
+    cout << "imprimindo arestas do grafo original\n";
+    for (auto ar : gr.arestas())
+    {
+        cout << *ar << "\n";
+    }
+
+    Grafo *result = k.kruskal(&gr);
+
+    cout << "\nimprimindo árvore de custo mínimo\n";
+    k.imprimeArvoreCustoMinimo(result, &gr);
 }
 
 int main(int argc, char *argv[])
 {
-    // cout << "===========================teste do grafo não dirigido===========================\n";
-    // testaGrafo();
+    cout << "===========================teste do grafo não dirigido===========================\n";
+    testaGrafo();
 
-    // cout << "\n===========================teste do grafo dirigido===========================\n";
-    // testaDigrafo();
+    cout << "\n===========================teste do grafo dirigido===========================\n";
+    testaDigrafo();
 
-    // testaBuscaLargura();
-    // testaBuscaProfundidade();
+    cout << "\n===========================teste da busca em largura===========================\n";
+    testaBuscaLargura();
 
-    // testaConexidade();
+    cout << "\n===========================teste da busca em profundidade===========================\n";
+    testaBuscaProfundidade();
 
+    cout << "\n===========================teste de conexidade em grafos==========================\n";
+    testaConexidade();
+
+    cout << "\n===========================teste do algoritmo de kruskal===========================\n";
     testaKruskal();
+
     return 0;
 }

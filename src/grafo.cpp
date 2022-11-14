@@ -172,6 +172,18 @@ Vertice *Grafo::getV(std::string identificador)
     return nullptr;
 }
 
+Aresta *Grafo::getA(std::string identificador)
+{
+    for (auto a : arestas())
+    {
+        if (a->getIdentificador() == identificador)
+        {
+            return a;
+        }
+    }
+    return nullptr;
+}
+
 std::ostream &operator<<(std::ostream &os, const Grafo &g)
 {
     os << "Grafo <" << g.identificador << ">";
