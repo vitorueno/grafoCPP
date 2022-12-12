@@ -47,9 +47,12 @@ Grafo *Kruskal::kruskal(Grafo *g)
     return a;
 }
 
-void Kruskal::setCustoAresta(Aresta *a, int custo)
+void Kruskal::setCustoArestas(Grafo *g)
 {
-    w[a] = custo;
+    for (auto a : g->arestas())
+    {
+        w[a] = a->getW();
+    }
 }
 
 void Kruskal::imprimeArvoreCustoMinimo(Grafo *a, Grafo *g)

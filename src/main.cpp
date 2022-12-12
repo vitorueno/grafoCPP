@@ -329,20 +329,22 @@ void testaKruskal()
     Aresta *hi = gr.insereA(h, i);
 
     Kruskal k;
-    k.setCustoAresta(ab, 4);
-    k.setCustoAresta(ah, 8);
-    k.setCustoAresta(bc, 8);
-    k.setCustoAresta(bh, 11);
-    k.setCustoAresta(cd, 7);
-    k.setCustoAresta(ci, 2);
-    k.setCustoAresta(cf, 4);
-    k.setCustoAresta(de, 9);
-    k.setCustoAresta(df, 14);
-    k.setCustoAresta(ef, 10);
-    k.setCustoAresta(fg, 2);
-    k.setCustoAresta(gh, 1);
-    k.setCustoAresta(ig, 6);
-    k.setCustoAresta(hi, 7);
+    ab->setW(4);
+    ah->setW(8);
+    bc->setW(8);
+    bh->setW(11);
+    cd->setW(7);
+    ci->setW(2);
+    cf->setW(4);
+    de->setW(9);
+    df->setW(14);
+    ef->setW(10);
+    fg->setW(2);
+    gh->setW(1);
+    ig->setW(6);
+    hi->setW(7);
+
+    k.setCustoArestas(&gr);
 
     cout << "imprimindo arestas do grafo original\n";
     for (auto ar : gr.arestas())
@@ -489,29 +491,29 @@ void testaDijkstra()
 
 int main(int argc, char *argv[])
 {
-    // cout << "===========================teste do grafo não dirigido===========================\n";
-    // testaGrafo();
+    cout << "===========================teste do grafo não dirigido===========================\n";
+    testaGrafo();
 
-    // cout << "\n===========================teste do grafo dirigido===========================\n";
-    // testaDigrafo();
+    cout << "\n===========================teste do grafo dirigido===========================\n";
+    testaDigrafo();
 
-    // cout << "\n===========================teste da busca em largura===========================\n";
-    // testaBuscaLargura();
+    cout << "\n===========================teste da busca em largura===========================\n";
+    testaBuscaLargura();
 
-    // cout << "\n===========================teste da busca em profundidade===========================\n";
-    // testaBuscaProfundidade();
+    cout << "\n===========================teste da busca em profundidade===========================\n";
+    testaBuscaProfundidade();
 
-    // cout << "\n===========================teste de conexidade em grafos==========================\n";
-    // testaConexidade();
+    cout << "\n===========================teste de conexidade em grafos==========================\n";
+    testaConexidade();
 
-    // cout << "\n===========================teste do algoritmo de kruskal===========================\n";
-    // testaKruskal();
+    cout << "\n===========================teste do algoritmo de kruskal===========================\n";
+    testaKruskal();
 
     cout << "\n===========================teste do algoritmo de Floyd===========================\n";
     testaFloyd();
 
-    // cout << "\n===========================teste do algoritmo de Dijkstra===========================\n";
-    // testaDijkstra();
+    cout << "\n===========================teste do algoritmo de Dijkstra===========================\n";
+    testaDijkstra();
 
     return 0;
 }

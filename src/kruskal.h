@@ -15,18 +15,17 @@ class Kruskal : public Set
 {
 protected:
     std::map<Aresta *, int> w;
+    void copiaVerticeParaGrafo(Grafo *g1, Grafo *g2);
+    std::vector<std::pair<Aresta *, int>> ordenaMapaCusto();
+    static bool compararCusto(std::pair<Aresta *, int> &a, std::pair<Aresta *, int> &b);
 
 public:
-    static bool compararCusto(std::pair<Aresta *, int> &a, std::pair<Aresta *, int> &b);
-    std::vector<std::pair<Aresta *, int>> ordenaMapaCusto();
-    void copiaVerticeParaGrafo(Grafo *g1, Grafo *g2);
-
     Kruskal();
     ~Kruskal();
 
     Grafo *kruskal(Grafo *g);
 
-    void setCustoAresta(Aresta *a, int custo);
+    void setCustoArestas(Grafo *g);
 
     // std::vector<int> getVectorCusto();
 
