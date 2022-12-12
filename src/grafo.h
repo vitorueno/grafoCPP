@@ -9,6 +9,7 @@
 #include "vertice.h"
 #include "aresta.h"
 #include <sstream>
+#include <iostream>
 
 #include "objetoIdentificado.h"
 

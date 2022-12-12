@@ -16,6 +16,8 @@ using namespace std;
 #include "buscaProfundidade.h"
 #include "conexidade.h"
 #include "kruskal.h"
+#include "floyd.h"
+#include "dijkstra.h"
 
 void testaGrafo()
 {
@@ -354,25 +356,162 @@ void testaKruskal()
     k.imprimeArvoreCustoMinimo(result, &gr);
 }
 
+void testaFloyd()
+{
+    GrafoDirigido g("floyd");
+
+    // // criando vértices
+    Vertice *v1 = g.insereV("1");
+    Vertice *v2 = g.insereV("2");
+    Vertice *v3 = g.insereV("3");
+    Vertice *v4 = g.insereV("4");
+    Vertice *v5 = g.insereV("4");
+
+    // // // criando arestas entre vértices e atribuindo valores
+    // Aresta *a14 = g.insereA(v1, v4, "1->4");
+    // a14->setW(5);
+    // Aresta *a12 = g.insereA(v1, v2, "1->2");
+    // a12->setW(3);
+    // Aresta *a43 = g.insereA(v4, v3, "4->3");
+    // a43->setW(2);
+    // Aresta *a32 = g.insereA(v3, v2, "3->2");
+    // a32->setW(1);
+    // Aresta *a24 = g.insereA(v2, v4, "2->4");
+    // a24->setW(4);
+    // Aresta *a21 = g.insereA(v2, v1, "2->1");
+    // a21->setW(-2);
+
+    Aresta *a12 = g.insereA(v1, v2, "1->2");
+    a12->setW(3);
+    Aresta *a13 = g.insereA(v1, v3, "1->3");
+    a13->setW(8);
+    Aresta *a15 = g.insereA(v1, v5, "1->5");
+    a15->setW(-4);
+
+    Aresta *a24 = g.insereA(v2, v4, "2->4");
+    a24->setW(1);
+    Aresta *a25 = g.insereA(v2, v5, "2->5");
+    a25->setW(7);
+
+    Aresta *a32 = g.insereA(v3, v2, "3->2");
+    a32->setW(4);
+
+    Aresta *a41 = g.insereA(v4, v1, "4->1");
+    a41->setW(2);
+
+    Aresta *a43 = g.insereA(v4, v3, "4->3");
+    a43->setW(-5);
+
+    Aresta *a54 = g.insereA(v5, v4, "5->4");
+    a54->setW(6);
+
+    Floyd floyd;
+
+    floyd.floyd(&g);
+
+    // floyd.imprimeResult();
+}
+
+void testaDijkstra()
+{
+    GrafoNaoDirigido gr("Dijkstra");
+
+    Vertice *a = gr.insereV("a");
+    Vertice *b = gr.insereV("b");
+    Vertice *c = gr.insereV("c");
+    Vertice *d = gr.insereV("d");
+    Vertice *e = gr.insereV("e");
+    Vertice *f = gr.insereV("f");
+    Vertice *g = gr.insereV("g");
+    Vertice *h = gr.insereV("h");
+
+    Aresta *ab = gr.insereA(a, b, "a->b");
+    ab->setW(5);
+
+    Aresta *bc = gr.insereA(b, c, "b->c");
+    bc->setW(4);
+
+    Aresta *cd = gr.insereA(c, d, "c->d");
+    cd->setW(15);
+
+    Aresta *af = gr.insereA(a, f, "a->f");
+    af->setW(4);
+
+    Aresta *bf = gr.insereA(b, f, "b->f");
+    bf->setW(5);
+
+    Aresta *bg = gr.insereA(b, g, "b->g");
+    bg->setW(15);
+
+    Aresta *ec = gr.insereA(e, c, "e->c");
+    ec->setW(8);
+
+    Aresta *ch = gr.insereA(c, h, "c->h");
+    ch->setW(9);
+
+    Aresta *dh = gr.insereA(d, h, "d->h");
+    dh->setW(3);
+
+    Aresta *eh = gr.insereA(e, h, "e->h");
+    eh->setW(11);
+
+    Aresta *eg = gr.insereA(e, g, "e->g");
+    eg->setW(2);
+
+    Aresta *gh = gr.insereA(g, h, "g->h");
+    gh->setW(9);
+
+    Dijkstra dik;
+
+    dik.dijkstra(&gr, b);
+
+    cout << dik.d[a] << "\n";
+    cout << dik.d[b] << "\n";
+    cout << dik.d[c] << "\n";
+    cout << dik.d[d] << "\n";
+    cout << dik.d[e] << "\n";
+    cout << dik.d[f] << "\n";
+    cout << dik.d[g] << "\n";
+    cout << dik.d[h] << "\n";
+
+    cout << *dik.p[a] << "\n";
+    if (dik.p[b] == nullptr)
+    {
+        cout << "null\n";
+    }
+    cout << *dik.p[c] << "\n";
+    cout << *dik.p[d] << "\n";
+    cout << *dik.p[e] << "\n";
+    cout << *dik.p[f] << "\n";
+    cout << *dik.p[g] << "\n";
+    cout << *dik.p[h] << "\n";
+}
+
 int main(int argc, char *argv[])
 {
-    cout << "===========================teste do grafo não dirigido===========================\n";
-    testaGrafo();
+    // cout << "===========================teste do grafo não dirigido===========================\n";
+    // testaGrafo();
 
-    cout << "\n===========================teste do grafo dirigido===========================\n";
-    testaDigrafo();
+    // cout << "\n===========================teste do grafo dirigido===========================\n";
+    // testaDigrafo();
 
-    cout << "\n===========================teste da busca em largura===========================\n";
-    testaBuscaLargura();
+    // cout << "\n===========================teste da busca em largura===========================\n";
+    // testaBuscaLargura();
 
-    cout << "\n===========================teste da busca em profundidade===========================\n";
-    testaBuscaProfundidade();
+    // cout << "\n===========================teste da busca em profundidade===========================\n";
+    // testaBuscaProfundidade();
 
-    cout << "\n===========================teste de conexidade em grafos==========================\n";
-    testaConexidade();
+    // cout << "\n===========================teste de conexidade em grafos==========================\n";
+    // testaConexidade();
 
-    cout << "\n===========================teste do algoritmo de kruskal===========================\n";
-    testaKruskal();
+    // cout << "\n===========================teste do algoritmo de kruskal===========================\n";
+    // testaKruskal();
+
+    cout << "\n===========================teste do algoritmo de Floyd===========================\n";
+    testaFloyd();
+
+    // cout << "\n===========================teste do algoritmo de Dijkstra===========================\n";
+    // testaDijkstra();
 
     return 0;
 }

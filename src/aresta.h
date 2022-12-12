@@ -12,6 +12,7 @@ class Aresta : public ObjetoIdentificado
 private:
     Vertice *u;
     Vertice *v;
+    int w;
 
 public:
     Aresta();
@@ -22,9 +23,11 @@ public:
 
     Vertice *getU();
     Vertice *getV();
+    int getW();
 
     void setU(Vertice *u);
     void setV(Vertice *v);
+    void setW(int w);
 
     friend std::ostream &operator<<(std::ostream &os, const Aresta &a);
 };

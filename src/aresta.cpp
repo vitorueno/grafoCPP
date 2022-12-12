@@ -33,6 +33,11 @@ Vertice *Aresta::getV()
     return v;
 }
 
+int Aresta::getW()
+{
+    return w;
+}
+
 void Aresta::setU(Vertice *u)
 {
     Aresta::u = u;
@@ -41,6 +46,11 @@ void Aresta::setU(Vertice *u)
 void Aresta::setV(Vertice *v)
 {
     Aresta::v = v;
+}
+
+void Aresta::setW(int w)
+{
+    Aresta::w = w;
 }
 
 std::ostream &operator<<(std::ostream &os, const Aresta &a)
