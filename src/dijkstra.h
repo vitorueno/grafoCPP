@@ -15,18 +15,21 @@
 
 class Dijkstra
 {
-public:
-    std::map<Vertice *, int> d;
+protected:
     std::map<Vertice *, Vertice *> p;
     int infinito;
     std::list<Vertice *> q;
-
-    Dijkstra();
-    ~Dijkstra();
+    std::map<Vertice *, int> d;
 
     Vertice *remove_minimo();
     void inicializaFila(GrafoNaoDirigido *g);
     bool pertenceAFila(Vertice *v);
+
+public:
+    Dijkstra();
+    ~Dijkstra();
+
+    void imprimeCaminho(Grafo *g, Vertice *s, Vertice *v);
 
     void dijkstra(GrafoNaoDirigido *g, Vertice *s);
 };

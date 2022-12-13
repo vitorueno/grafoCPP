@@ -8,6 +8,24 @@ Dijkstra::~Dijkstra()
 {
 }
 
+void Dijkstra::imprimeCaminho(Grafo *g, Vertice *s, Vertice *v)
+{
+    if (v == s)
+    {
+        std::cout << *v << "\n";
+    }
+    else
+    {
+        if (p[v] == nullptr)
+            std::cout << "não existe caminho de s para v\n";
+        else
+        {
+            imprimeCaminho(g, s, p[v]);
+            std::cout << *v << " custo total: " << d[v] << "\n";
+        }
+    }
+}
+
 Vertice *Dijkstra::remove_minimo()
 {
     Vertice *vMenorCusto = q.front();

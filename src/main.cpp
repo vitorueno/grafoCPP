@@ -367,7 +367,7 @@ void testaFloyd()
     Vertice *v2 = g.insereV("2");
     Vertice *v3 = g.insereV("3");
     Vertice *v4 = g.insereV("4");
-    Vertice *v5 = g.insereV("4");
+    Vertice *v5 = g.insereV("5");
 
     // // // criando arestas entre vértices e atribuindo valores
     // Aresta *a14 = g.insereA(v1, v4, "1->4");
@@ -467,26 +467,7 @@ void testaDijkstra()
 
     dik.dijkstra(&gr, b);
 
-    cout << dik.d[a] << "\n";
-    cout << dik.d[b] << "\n";
-    cout << dik.d[c] << "\n";
-    cout << dik.d[d] << "\n";
-    cout << dik.d[e] << "\n";
-    cout << dik.d[f] << "\n";
-    cout << dik.d[g] << "\n";
-    cout << dik.d[h] << "\n";
-
-    cout << *dik.p[a] << "\n";
-    if (dik.p[b] == nullptr)
-    {
-        cout << "null\n";
-    }
-    cout << *dik.p[c] << "\n";
-    cout << *dik.p[d] << "\n";
-    cout << *dik.p[e] << "\n";
-    cout << *dik.p[f] << "\n";
-    cout << *dik.p[g] << "\n";
-    cout << *dik.p[h] << "\n";
+    dik.imprimeCaminho(&gr, b, g);
 }
 
 int main(int argc, char *argv[])
